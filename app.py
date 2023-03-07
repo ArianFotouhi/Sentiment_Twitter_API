@@ -7,12 +7,12 @@ from flask import Flask, request, url_for, redirect, send_file, render_template,
 
 api = API()
 twt = api.tweet_render()
-for i,txt in enumerate(twt):
-    print(txt)
-    analyzed_txt = sentiment(txt['text'])
-    print(analyzed_txt.Analysis())
-    if i ==20:
-        break
+# for i,txt in enumerate(twt['text']):
+#     print(txt)
+#     analyzed_txt = sentiment(txt)
+#     print(analyzed_txt.Analysis())
+#     if i ==20:
+#         break
 
 
 """
@@ -29,10 +29,20 @@ def sent_analysis_thread(text):
     analysis_res = text.Analysis()
     pass
 #sentiment analysis of replies of a thread
-def sent_analysis_replies(text):
-    analysis_res = text.Analysis()
-    pass
 """
+def sent_analysis_replies(twt):
+    compound_rate = []
+    for i,txt in enumerate(twt['text']):
+            # print(txt)
+        analyzed_txt = sentiment(txt)
+        compound_rate.append(analyzed_txt.Analysis())
+        if i ==25:
+            break
+    twt = twt.iloc[:26,:]
+    twt['Sentiment'] = compound_rate
+    twt=twt.drop(['sentiment'],axis=1)
+    return twt
+
 
 
 
@@ -51,9 +61,17 @@ app = Flask(__name__)
 @app.route('/tweets/ylecun', methods = ['GET'])
 def tweets_ylecun():
 
+    api = API()
+    twt = api.tweet_render()
+    twt = sent_analysis_replies(twt)
+    
+    return render_template('tweets.html',dataframe=twt.to_numpy())
 
-    return render_template('tweets.html')
 
+
+if __name__=='__main__':
+
+    app.run(host='127.0.0.1',port=8000,debug=True)
 
 """
 @app.route('/tweets/elonmusk', methods = ['GET'])
@@ -136,3 +154,4 @@ def tweets_cathiedwood():
 
     return render_template('blk.html',chain =blc, length=len(blc),token=token)
 """
+

@@ -4,23 +4,23 @@ import datetime
 
 
 
-import numpy as np 
+"""import numpy as np 
 import pandas as pd 
 
 # To consume Twitter's API
 import tweepy
 from tweepy import OAuthHandler 
 
-"""
-consumer_key = 'Sec3MvclRIx2RVlgu9l0SJX6D'
-consumer_secret = 'ayoPNWtBm7fWpMBoK6EwRmegu3SW8Rw9mzJkottkv97quPe941'
-access_token = '736550752760406018-so5CPJrEbJKb3c3Pq8va3VFr0yk4S0E'
-access_token_secret = 'Cgr8tz0h6FTU7kxAjDzpHnjffNTHxWsBytXnu4Ihd1TFb'
+
+consumer_key =  "2b001c7b056c4b410d28f33cf"
+consumer_secret =  "eO5aNLJ4Eu51be719fd27f5f9db390cdc9c3d98f0e3"
+access_token =  "8980980401-M0iGY3MY55d3aae7037c0FkZoG4b11tdKZ8I1N"
+access_token_secret = "UzSRLYgbwNCmA3W9cxS00c64059dd8d31a080c56a0339LOL3ATU"
 
 class TwitterClient(object): 
     def __init__(self): 
         #Initialization method. 
-        try: 
+        try:
             # create OAuthHandler object 
             auth = OAuthHandler(consumer_key, consumer_secret) 
             # set access token and secret 
@@ -93,6 +93,7 @@ tweets_df.head(10)
 """
 
 ######################################################
+
 
 import pandas as pd
 
