@@ -16,7 +16,7 @@ twt = api.tweet_render()
 
 
 """
-# Receive tweets 
+# Receive tweets
 tweets = api.tweet_render()
 #separate tweets and replies
 def tweet_reply_separate():
@@ -57,12 +57,14 @@ def accounts():
     return render_template('blk.html')
 """
 
-app = Flask(__name__)   
+app = Flask(__name__)  
+api = API()
+
 @app.route('/tweets/ylecun', methods = ['GET'])
 def tweets_ylecun():
 
-    api = API()
-    twt = api.tweet_render()
+    
+    twt = api.tweet_render(id='ylecun')
     twt = sent_analysis_replies(twt)
     
     return render_template('tweets.html',dataframe=twt.to_numpy())
@@ -76,23 +78,20 @@ if __name__=='__main__':
 """
 @app.route('/tweets/elonmusk', methods = ['GET'])
 def tweets_elonmusk():
-    # token = request.args.get('token')
-    # account_name = token2username(token)
     
-    # blc=render_chain(account_name)
-
-    return render_template('blk.html',chain =blc, length=len(blc),token=token)
+    twt = api.tweet_render(id='elonmusk')
+    twt = sent_analysis_replies(twt)
+    
+    return render_template('tweets.html',dataframe=twt.to_numpy())
 
 
 @app.route('/tweets/cathiedwood', methods = ['GET'])
 def tweets_cathiedwood():
-    # token = request.args.get('token')
-    # account_name = token2username(token)
     
-    # blc=render_chain(account_name)
-
-    return render_template('blk.html',chain =blc, length=len(blc),token=token)
-
+    twt = api.tweet_render(id='elonmusk')
+    twt = sent_analysis_replies(twt)
+    
+    return render_template('tweets.html',dataframe=twt.to_numpy())
 
 
 
@@ -128,30 +127,27 @@ def tweets_cathiedwood():
 
 @app.route('/sentiment/ylecun', methods = ['GET'])
 def tweets_ylecun():
-    # token = request.args.get('token')
-    # account_name = token2username(token)
-    
-    # blc=render_chain(account_name)
 
-    return render_template('blk.html',chain =blc, length=len(blc),token=token)
+   twt = api.tweet_render(id='ylecun')
+    twt = sent_analysis_replies(twt)
+    
+    return render_template('sent_tweets.html',dataframe=twt.to_numpy())
 
 @app.route('/sentiment/elonmusk', methods = ['GET'])
 def tweets_elonmusk():
-    # token = request.args.get('token')
-    # account_name = token2username(token)
-    
-    # blc=render_chain(account_name)
 
-    return render_template('blk.html',chain =blc, length=len(blc),token=token)
+    twt = api.tweet_render(id='elonmusk')
+    twt = sent_analysis_replies(twt)
+    
+    return render_template('tweets_sent.html',dataframe=twt.to_numpy())
 
 
 @app.route('/sentiment/cathiedwood', methods = ['GET'])
 def tweets_cathiedwood():
-    # token = request.args.get('token')
-    # account_name = token2username(token)
-    
-    # blc=render_chain(account_name)
 
-    return render_template('blk.html',chain =blc, length=len(blc),token=token)
+    twt = api.tweet_render(id='cathiedwood')
+    twt = sent_analysis_replies(twt)
+    
+    return render_template('tweets_sent.html',dataframe=twt.to_numpy())
 """
 

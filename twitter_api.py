@@ -94,17 +94,30 @@ tweets_df.head(10)
 
 ######################################################
 
-
+import snscrape.modules.twitter as sntwitter
 import pandas as pd
 
-class API:
-    def __init__(self):
-        pass 
-    def tweet_render(self):
-        twt = pd.read_csv('./static/Files/Tweets.csv')
-        return twt
+# Specify the Twitter account and date range
+twitter_username = 'elonmusk'
+since_date = '2023-02-25'
 
 
+# Create a list to hold all the replies
+replies_list = []
+
+# Iterate through each tweet of Elon Musk in the date range
+for tweet in sntwitter.TwitterSearchScraper(f'from:{twitter_username} since:{since_date}').get_items():
+    # Get the conversation ID of the tweet
+    conv_id = tweet.conversationId
+    
+    # Search for replies to the conversation ID
+    for reply in sntwitter.TwitterSearchScraper(f'conversation_id:{conv_id}').get_items():
+        # Append the reply data to the list
+        replies_list.append([reply.id, reply.content, reply.date, reply.user.username])
+
+# Convert the list to a Pandas DataFrame
+replies_df = pd.DataFrame(replies_list, columns=['id', 'content', 'date', 'username'])
+print(replies_df)
 
 """
 
