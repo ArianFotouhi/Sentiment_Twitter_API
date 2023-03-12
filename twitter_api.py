@@ -1,6 +1,3 @@
-import tweepy
-import datetime
-
 import snscrape.modules.twitter as sntwitter
 import pandas as pd
 import pytz
@@ -24,9 +21,8 @@ class Tweet_Extractor:
 
         # iterate through search results and extract replies
         replies_list = []
-        # for tweet in sntwitter.TwitterSearchScraper(f'from:{self.user} since:{self.since_date} until:{self.until_date}').get_items():
     
-        for tweet in sntwitter.TwitterSearchScraper(search_query +  ' since:' + self.since_date.strftime('%Y-%m-%d')+  ' until:' + self.until_date.strftime('%Y-%m-%d') ).get_items():
+        for tweet in sntwitter.TwitterSearchScraper(search_query +  ' since:' + self.since_date.strftime('%Y-%m-%d')+  ' until:' + self.until_date.strftime('%Y-%m-%d') + ' filter:'+'replies' ).get_items():
             replies_list.append([tweet.id, tweet.content, tweet.date, tweet.user.username])
 
         # convert replies to dataframe

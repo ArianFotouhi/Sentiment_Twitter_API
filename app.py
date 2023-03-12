@@ -53,12 +53,14 @@ def tweets_ylecun():
     # date_str = input("Enter a date (yyyy-mm-dd): ")
     date_str = '2023-2-22'
     date = datetime.strptime(date_str, "%Y-%m-%d")
-    
+
+
+
     tweet_ext = Tweet_Extractor(until_date= date.replace(tzinfo=utc)) 
     df = tweet_ext.extractor()
-    print(df)
+   
 
-    return render_template('tweets.html',dataframe=df.to_numpy())
+    return render_template('tweets.html',dataframe=df.to_numpy(), columns = df.columns)
 
 
 
